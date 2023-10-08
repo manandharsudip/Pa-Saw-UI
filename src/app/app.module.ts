@@ -10,7 +10,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HomeComponent } from './components/customers/home/home.component';
 
 import { HttpClientModule } from '@angular/common/http';
-import { AuthComponent } from './components/customers/auth/auth.component';
 import { CustomerModule } from './components/customers/customers.module';
 
 @NgModule({
@@ -27,7 +26,7 @@ import { CustomerModule } from './components/customers/customers.module';
     NgbModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
