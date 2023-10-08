@@ -1,0 +1,19 @@
+<br>
+<br>
+<div class="row">
+    <div class="col-md-6 offset-md-3" *ngIf="!isRegistration">
+        <h3>Sign In</h3>
+        <form [formGroup]="signInForm" (ngSubmit)="onSubmitSignUp()">
+            <div class="form-group mb-3">
+                <label for="InputEmail" class="form-label">Email address</label>
+                <input type="email" name="email" class="form-control" formControlName="email" />
+
+            </div>
+            <div class="form-group mb-3">
+                <label for="InputPassword" class="form-label">Password</label>
+                <input type="password" name="password"  class="form-control" formControlName="password" />
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
