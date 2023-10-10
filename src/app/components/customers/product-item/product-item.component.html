@@ -1,0 +1,21 @@
+<br />
+<br />
+<br />
+<div class="row">
+  <div class="col-sm-6">
+    <img src="assets/images/Products/{{ product.categoryname }}/{{ product.imageurl }}" class="card-img-top" alt="..." />
+  </div>
+  <div class="col-sm-6">
+    <div class="card" style="width: 18rem">
+      <div class="card-body">
+        <h5 class="card-title">{{ product.productname }}</h5>
+        <p class="card-text">
+          {{ product.description }}
+        </p>
+        <p class="card-text">Price: {{ product.price }}</p>
+        <p class="card-text">Status: {{ product.status }}</p>
+        <a href="#" class="btn btn-primary">Add to Cart</a>
+      </div>
+    </div>
+  </div>
+</div>

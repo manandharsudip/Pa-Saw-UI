@@ -1,17 +1,1 @@
-<br>
-<div class="row">
-  <div class="col-sm-4 product" *ngFor="let product of allProducts">
-    <div class="card" style="width: 18rem">
-      <!-- <img src="..." class="card-img-top" alt="..." /> -->
-      <div class="card-body">
-        <h5 class="card-title">{{ product.productname }}</h5>
-        <span>Price: {{ product.price }} </span><span>Status: {{ product.status }}</span>
-        <p class="card-text">
-          {{ product.description }}
-        </p>
-        <a href="#" class="btn btn-primary">Add to Cart</a>
-        <a href="#" class="btn btn-primary">Buy Directly</a>
-      </div>
-    </div>
-  </div>
-</div>
+<app-product [allProducts]="allProducts"></app-product>

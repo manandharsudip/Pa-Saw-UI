@@ -9,13 +9,13 @@ import { SharedModule } from './shared/shared.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HomeComponent } from './components/customers/home/home.component';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { CustomerModule } from './components/customers/customers.module';
+import { HttpTokenInterceptor } from './main/interceptor/http.interceptor';
+import { OrdersComponent } from './components/staff/orders/orders.component';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent, OrdersComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -24,9 +24,11 @@ import { CustomerModule } from './components/customers/customers.module';
     SharedModule,
     CustomerModule,
     NgbModule,
-    HttpClientModule
+    HttpClientModule,
   ],
-  providers: [  ],
-  bootstrap: [AppComponent]
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: HttpTokenInterceptor, multi: true },
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

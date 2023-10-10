@@ -13,16 +13,28 @@
 
                 <ng-container *ngFor="let category of allCategory">
                     <li class="nav-item">
-                        <a class="nav-link" href="/{{ category.categoryname }}">{{ category.categoryname }}</a>
+                        <a class="nav-link" routerLink="/category/{{ category.id }}">{{ category.categoryname }}</a>
                     </li>
                 </ng-container>
             </ul>
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0" *ngIf="!loggedIn">
                 <li class="nav-item">
-                    <a class="nav-link mouse-pointer" routerLink="/sign-in">Sign In</a>
+                    <a class="nav-link mouse-pointer" routerLink="/signIn">Sign In</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link mouse-pointer" routerLink="/sign-up">Sign Up</a>
+                    <a class="nav-link mouse-pointer" routerLink="/signUp">Sign Up</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0" *ngIf="loggedIn">
+                <div>
+                    <a class="nav-link mouse-pointer" routerLink="/carts"><i style = "color:white;" class="bi bi-cart"></i></a>
+                    
+                </div>
+                <li class="nav-item">
+                    <a class="nav-link mouse-pointer" routerLink="/myProfile">My Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link mouse-pointer" (click)="signOut()">Sign Out</a>
                 </li>
             </ul>
         </div>

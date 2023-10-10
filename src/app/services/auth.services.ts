@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -8,6 +8,31 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   authLogin(userData: Observable<any>) {
-    return this.http.post(environment.baseUrl + '/login', userData);
+    return this.http.post(
+      environment.baseUrl + '/login',
+      userData,
+      {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+        }),
+      }
+      // {
+      //     headers: new HttpHeaders({
+      //         'custom-header': 'angular basic'
+      //     }),
+      //     // observe: 'response', // gives total response like status code and all
+      //     // responseType: 'text' // converts into text type
+      //   }
+    );
+  }
+
+  authRegister(userData: Observable<any>) {
+    return this.http.post(environment.baseUrl + '/register', userData, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      }),
+    });
   }
 }
