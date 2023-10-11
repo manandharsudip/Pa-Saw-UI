@@ -1,0 +1,31 @@
+<br>
+<br>
+<form [formGroup]="addProductForm" (ngSubmit)="onAddingProduct()" enctype="multipart/form-data">
+    <div class="form-group">
+      <label for="productname">Category Name</label>
+      <input type="text" id="productname" formControlName="productname" class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="categoryid"> Category Id</label>
+        <input type="text" id="categoryid" formControlName="categoryid" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="description">Description</label>
+      <input type="text" id="description" formControlName="description" class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="price"> Price</label>
+        <input type="text" id="price" formControlName="price" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="image">Image</label>
+      <input type="file" id="image" class="form-control" formControlName="imageurl" (change)="onFileSelected($event)">
+    </div>
+    <div class="form-group">
+        <label for="status"> Status</label>
+        <input type="text" id="status" formControlName="status" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <!-- <button type="button" class="btn btn-danger" (click)="closePopup()">Close
+    </button> -->
+  </form>

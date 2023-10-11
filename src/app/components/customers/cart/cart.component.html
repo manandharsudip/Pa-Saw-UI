@@ -6,18 +6,20 @@
       <tr>
         <th scope="col">Order ID</th>
         <th scope="col">Product Name</th>
+        <th scope="col">Quantity</th>
         <th scope="col">Status</th>
-        <th scope="col">Action</th>
+        <th scope="col"><input type="checkbox" [(ngModel)]="selectAll" (change)="toggleAllCheckboxes()"> Select All</th>
       </tr>
     </thead>
     <tbody>
-      <ng-container *ngFor="let order of allOrders">
-        <tr>
-          <th scope="row"> {{ order.id }} </th>
-          <td>{{ order.productEntity.productname }}</td>
-          <td>{{ order.status }}</td>
-          <td><button>Change Status</button></td>
-        </tr>
-      </ng-container>
-    </tbody>
-  </table>
+        <ng-container *ngFor="let order of allOrders">
+          <tr>
+            <th scope="row"> {{ order.id }} </th>
+            <td>{{ order.productEntity.productname }}</td>
+            <td><input type="number" value="{{ order.quantity }}" min="1"> </td>
+            <td>{{ order.status }}</td>
+            <td> <input type="checkbox" [(ngModel)]="order.checked" (change)="onCheckboxChange(order)"> {{ order.productEntity.productname }}</td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>

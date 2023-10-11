@@ -21,13 +21,7 @@ export class OrdersComponent implements OnInit {
       .get(
         environment.baseUrl + '/api/ems/order',
 
-        {
-          headers: new HttpHeaders({
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            Authorization: `Bearer ${sessionStorage.getItem('Access Token')}`,
-          }),
-        }
+        
       )
       .subscribe((data) => {
         this.allOrders = data;

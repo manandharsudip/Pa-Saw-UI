@@ -17,11 +17,10 @@ export class ProductComponent implements OnInit {
   public addToCart(productID: any): void {
     const productData = { productid: productID, quantity: 1 };
 
-    this.http.post(
-      environment.baseUrl + '/api/ems/cart/addToCart',
-      productData
-    ).subscribe(response=>{
-      console.log('Clicked', productID, response);
-    });
+    this.http
+      .post(environment.baseUrl + '/api/ems/cart/addToCart', productData)
+      .subscribe((response) => {
+        console.log('Clicked', productID, response);
+      });
   }
 }

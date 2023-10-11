@@ -7,13 +7,37 @@ import { environment } from 'src/environments/environment';
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.scss'],
 })
+
+
+
 export class CartComponent {
   constructor(private http: HttpClient) {}
 
+  
+
   allOrders: any = [];
+  selectAll: boolean = false;
 
   ngOnInit(): void {
     this.fetchAllOrders();
+  }
+
+  toggleAllCheckboxes() {
+    for (const order of this.allOrders) {
+      order.checked = this.selectAll;
+    }
+  }
+
+  onCheckboxChange(order: any) {
+    console.log(`Checkbox with ID ${order.id} is ${order.checked ? 'checked' : 'unchecked'}`);
+    this.getSelectedOrders();
+  }
+
+  getSelectedOrders() {
+    
+    // const selectedItems = this.allOrders.filter(item => item.checked);
+    // const selectedIds = selectedItems.map(item => item.id);
+    // console.log('Selected IDs:', selectedIds);
   }
 
   public fetchAllOrders(): void {

@@ -5,65 +5,62 @@ import { User } from 'src/app/main/models/object-model';
 import { AuthService } from 'src/app/services/auth.services';
 
 @Component({
-  selector: 'app-auth',
-  templateUrl: './auth.component.html',
-  styleUrls: ['./auth.component.scss'],
+  selector: 'app-auth-staff',
+  templateUrl: './auth-staff.component.html',
+  styleUrls: ['./auth-staff.component.scss'],
 })
-export class AuthComponent implements OnInit {
+export class AuthStaffComponent implements OnInit {
   signInForm!: FormGroup;
-  signUpForm!: FormGroup;
-  href: String = '';
-  isRegistration: Boolean = false;
   signInFormValue: any = {};
   userDto: User = new User();
   userData: any;
-  loggedIn: Boolean = false;
 
   constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit(): void {
-
-    const user_session_id = sessionStorage.getItem('Access Token');
-    if (user_session_id) {
-      this.loggedIn = true;
-    }
-
-    this.href = this.router.url;
-    if (this.href === '/signUp') {
-      this.isRegistration = true;
-    } else if (this.href === '/signIn') {
-      this.isRegistration = false;
-    }
-
-
     // why do we need this?/
 
     this.signInForm = new FormGroup({
       email: new FormControl(null, Validators.required),
       password: new FormControl(null, Validators.required),
     });
-
-    this.signUpForm = new FormGroup({
-      firstname: new FormControl(null, Validators.required),
-      lastname: new FormControl(null, Validators.required),
-      email: new FormControl(null, Validators.required),
-      password: new FormControl(null, Validators.required),
-    });
-  }
-
-  onSubmitSignUp(): void {
-    // console.log(this.signUpForm.value);
-    this.authService.authRegister(this.signUpForm.value).subscribe();
   }
 
   onSubmitSignIn(): void {
-    this.authService.authLogin(this.signInForm.value).subscribe((response) => {
+    const formData = new FormData();
+
+    console.log("Category:", this.signInForm.get('email')?.value);
+    console.log("Description:", this.signInForm.get('password')?.value);
+
+    formData.append(
+      'email',
+      this.signInForm.get('email')?.value
+    );
+    formData.append(
+      'password',
+      this.signInForm.get('password')?.value
+    );
+
+    const formDataObject: any = {};
+    formData.forEach((value, key) => {
+      formDataObject[key] = value;
+    });
+  
+    // Print the plain object to inspect its contents
+    console.log(formDataObject);
+    console.log(this.signInForm.value);
+
+    // this.authService.authLogin(this.signInForm.value).subscribe((response) => {
+    this.authService.authLogin(formDataObject).subscribe((response) => {
       this.userData = response;
+      console.log(this.userData.userPrincipal.authorities[0].authority);
       if (this.userData) {
         if (
           this.userData.userPrincipal.authorities[0].authority ===
-          'ROLE_CUSTOMER'
+          'ROLE_ADMIN' || this.userData.userPrincipal.authorities[0].authority ===
+          'ROLE_USER'
         ) {
+          console.log("This Working..");
           sessionStorage.setItem('Access Token', this.userData.accessToken);
           sessionStorage.setItem(
             'Role',
@@ -71,7 +68,7 @@ export class AuthComponent implements OnInit {
           );
           // console.log(this.userData.userPrincipal.userId);
           sessionStorage.setItem('User ID', this.userData.userPrincipal.userId);
-          this.router.navigateByUrl('');
+          this.router.navigateByUrl('ems/admin-panel');
         } else {
           alert('Invalid Login');
         }

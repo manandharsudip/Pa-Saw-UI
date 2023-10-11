@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
 export class AuthService {
   constructor(private http: HttpClient) {}
 
-  authLogin(userData: Observable<any>) {
+  authLogin(userData: any) {
     return this.http.post(
       environment.baseUrl + '/login',
       userData,
@@ -29,10 +29,6 @@ export class AuthService {
 
   authRegister(userData: Observable<any>) {
     return this.http.post(environment.baseUrl + '/register', userData, {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-      }),
     });
   }
 }

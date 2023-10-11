@@ -7,15 +7,14 @@ import { StoreModule } from '@ngrx/store';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared/shared.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { HomeComponent } from './components/customers/home/home.component';
 
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { CustomerModule } from './components/customers/customers.module';
 import { HttpTokenInterceptor } from './main/interceptor/http.interceptor';
-import { OrdersComponent } from './components/staff/orders/orders.component';
+import { StaffModule } from './components/staff/staff.module';
 
 @NgModule({
-  declarations: [AppComponent, OrdersComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -23,6 +22,7 @@ import { OrdersComponent } from './components/staff/orders/orders.component';
     BrowserAnimationsModule,
     SharedModule,
     CustomerModule,
+    StaffModule,
     NgbModule,
     HttpClientModule,
   ],

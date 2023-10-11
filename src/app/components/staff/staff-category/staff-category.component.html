@@ -1,0 +1,67 @@
+<br />
+<br />
+<div class="row">
+  <div class="col">
+    <h3>Category</h3>
+  </div>
+  <div class="col">
+    <a class="btn btn-primary" (click)="openPopup()">Add Category</a>
+  </div>
+  <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{ display: displayStyle }">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Add Category</h4>
+        </div>
+        <div class="modal-body">
+
+          <form [formGroup]="addCategoryForm" (ngSubmit)="onAddingCat()" enctype="multipart/form-data">
+            <div class="form-group">
+              <label for="categoryname">Category Name</label>
+              <input type="text" id="categoryname" formControlName="categoryname" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="description">Description</label>
+              <input type="text" id="description" formControlName="description" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="image">Image</label>
+              <input type="file" id="image" class="form-control" formControlName="imageurl" (change)="onFileSelected($event)">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="button" class="btn btn-danger" (click)="closePopup()">Close
+            </button>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<table class="table table-hover table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">Category ID</th>
+      <th scope="col">Category Name</th>
+      <th scope="col">Description</th>
+      <th scope="col">Image URL</th>
+      <th scope="col">Added By</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let category of allCategory">
+      <tr>
+        <th scope="row">{{ category.categoryId }}</th>
+        <th scope="row">{{ category.categoryname }}</th>
+        <td>{{ category.description }}</td>
+        <td>{{ category.imageurl }}</td>
+        <td>{{ category.addedBy }}</td>
+        <td>
+          <a class="btn btn-primary">Update</a>
+          <a (click)="deleteCategoryById(category.categoryId)" class="btn btn-danger">Delete</a>
+        </td>
+      </tr>
+    </ng-container>
+  </tbody>
+</table>

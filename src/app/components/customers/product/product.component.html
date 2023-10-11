@@ -2,19 +2,19 @@
 
 <div class="row">
   <div class="col-sm-4 product" *ngFor="let product of allProducts">
-    <a class="nav-link mouse-pointer" routerLink="/product-item/{{ product.produtId }}">
-      <div class="card" style="width: 18rem">
-        <!-- <img src="..." class="card-img-top" alt="..." /> -->
+    <div class="card" style="width: 18rem">
+      <a class="nav-link mouse-pointer" routerLink="/product-item/{{ product.produtId }}">
+        <img src="assets/images/CategoryImage/{{ product.categoryname }}/{{ product.imageurl }}" class="card-img-top" alt="..." />
         <div class="card-body">
           <h5 class="card-title">{{ product.productname }}</h5>
           <span>Price: {{ product.price }} </span><span>Status: {{ product.status }}</span>
           <p class="card-text">
             {{ product.description }}
           </p>
-          <a href="#" (click)="addToCart(product.id)" class="btn btn-primary">Add to Cart</a>
-          <a href="#" class="btn btn-primary">Buy Directly</a>
         </div>
-      </div>
-    </a>
+      </a>
+      <a href="#" (click)="addToCart(product.produtId)" class="btn btn-primary">Add to Cart</a>
+      <a href="#" class="btn btn-primary">Buy Directly</a>
+    </div>
   </div>
 </div>
