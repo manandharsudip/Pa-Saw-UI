@@ -9,8 +9,19 @@ import { environment } from 'src/environments/environment';
 })
 export class ProductComponent implements OnInit {
   @Input({ required: true }) allProducts: any = [];
+  loggedIn: Boolean = false;
+  isStaff: Boolean = false;
 
   ngOnInit(): void {}
+
+  ngDoCheck() {
+    const user_session_id = sessionStorage.getItem('Access Token');
+    const user_role = sessionStorage.getItem('Role');
+
+    if (user_session_id && user_role === "ROLE_CUSTOMER") {
+      this.loggedIn = true;
+    }
+  }
 
   constructor(private http: HttpClient) {}
 

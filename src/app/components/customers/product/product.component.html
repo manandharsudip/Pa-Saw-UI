@@ -4,7 +4,7 @@
   <div class="col-sm-4 product" *ngFor="let product of allProducts">
     <div class="card" style="width: 18rem">
       <a class="nav-link mouse-pointer" routerLink="/product-item/{{ product.produtId }}">
-        <img src="assets/images/CategoryImage/{{ product.categoryname }}/{{ product.imageurl }}" class="card-img-top" alt="..." />
+        <img src="assets/images/Products/{{ product.categoryname }}/{{ product.imageurl }}" class="card-img-top" alt="..." />
         <div class="card-body">
           <h5 class="card-title">{{ product.productname }}</h5>
           <span>Price: {{ product.price }} </span><span>Status: {{ product.status }}</span>
@@ -13,8 +13,10 @@
           </p>
         </div>
       </a>
-      <a href="#" (click)="addToCart(product.produtId)" class="btn btn-primary">Add to Cart</a>
-      <a href="#" class="btn btn-primary">Buy Directly</a>
+      <!-- <ng-component *ngIf="loggedIn"> -->
+        <a href="#" (click)="addToCart(product.produtId)" class="btn btn-primary">Add to Cart</a>
+        <a href="#" class="btn btn-primary">Buy Directly</a>
+      <!-- </ng-component> -->
     </div>
   </div>
 </div>

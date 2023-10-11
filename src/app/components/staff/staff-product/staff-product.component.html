@@ -1,31 +1,86 @@
 <br>
 <br>
-<form [formGroup]="addProductForm" (ngSubmit)="onAddingProduct()" enctype="multipart/form-data">
-    <div class="form-group">
-      <label for="productname">Category Name</label>
-      <input type="text" id="productname" formControlName="productname" class="form-control">
+<div class="row">
+  <div class="col">
+    <h3>Category</h3>
+  </div>
+  <div class="col">
+    <a class="btn btn-primary" (click)="openPopup()">Add Category</a>
+  </div>
+</div>
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{ display: displayStyle }">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Add Category</h4>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="addProductForm" (ngSubmit)="onAddingProduct()" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="productname">Category Name</label>
+            <input type="text" id="productname" formControlName="productname" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="categoryid"> Category Id</label>
+            <input type="text" id="categoryid" formControlName="categoryid" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="description">Description</label>
+            <input type="text" id="description" formControlName="description" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="price"> Price</label>
+            <input type="text" id="price" formControlName="price" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="image">Image</label>
+            <input type="file" id="image" class="form-control" formControlName="imageurl"
+              (change)="onFileSelected($event)">
+          </div>
+          <div class="form-group">
+            <label for="status"> Status</label>
+            <input type="text" id="status" formControlName="status" class="form-control">
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="button" class="btn btn-danger" (click)="closePopup()">Close
+          </button>
+        </form>
+
+
+      </div>
     </div>
-    <div class="form-group">
-        <label for="categoryid"> Category Id</label>
-        <input type="text" id="categoryid" formControlName="categoryid" class="form-control">
-    </div>
-    <div class="form-group">
-      <label for="description">Description</label>
-      <input type="text" id="description" formControlName="description" class="form-control">
-    </div>
-    <div class="form-group">
-        <label for="price"> Price</label>
-        <input type="text" id="price" formControlName="price" class="form-control">
-    </div>
-    <div class="form-group">
-      <label for="image">Image</label>
-      <input type="file" id="image" class="form-control" formControlName="imageurl" (change)="onFileSelected($event)">
-    </div>
-    <div class="form-group">
-        <label for="status"> Status</label>
-        <input type="text" id="status" formControlName="status" class="form-control">
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-    <!-- <button type="button" class="btn btn-danger" (click)="closePopup()">Close
-    </button> -->
-  </form>
+  </div>
+</div>
+<table class="table table-hover table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">Product ID</th>
+      <th scope="col">Product Name</th>
+      <th scope="col">Category Name</th>
+      <th scope="col">Description</th>
+      <th scope="col">Price</th>
+      <th scope="col">Image URL</th>
+      <th scope="col">Status</th>
+      <th scope="col">Added By</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let product of allProducts">
+      <tr>
+        <th scope="row">{{ product.produtId }}</th>
+        <th scope="row">{{ product.productname }}</th>
+        <th scope="row">{{ product.categoryname }}</th>
+        <td>{{ product.description }}</td>
+        <td>{{ product.price }}</td>
+        <td>{{ product.imageurl }}</td>
+        <td>{{ product.status }}</td>
+        <td>{{ product.userId }}</td>
+        <td>
+          <a class="btn btn-primary" (click)="openPopup()">Update</a>
+          <a (click)="deleteCategoryById(product.categoryId)" class="btn btn-danger">Delete</a>
+        </td>
+      </tr>
+    </ng-container>
+  </tbody>
+</table>

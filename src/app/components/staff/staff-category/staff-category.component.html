@@ -5,7 +5,7 @@
     <h3>Category</h3>
   </div>
   <div class="col">
-    <a class="btn btn-primary" (click)="openPopup()">Add Category</a>
+    <a class="btn btn-primary" (click)="openPopup(0)">Add Category</a>
   </div>
   <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{ display: displayStyle }">
     <div class="modal-dialog" role="document">
@@ -15,20 +15,22 @@
         </div>
         <div class="modal-body">
 
-          <form [formGroup]="addCategoryForm" (ngSubmit)="onAddingCat()" enctype="multipart/form-data">
+          <form (ngSubmit)="onAddingCat()" enctype="multipart/form-data">
             <div class="form-group">
               <label for="categoryname">Category Name</label>
-              <input type="text" id="categoryname" formControlName="categoryname" class="form-control">
+              <input type="text" name="categoryname" class="form-control" [(ngModel)]="selectedCategory.categoryname">
             </div>
             <div class="form-group">
               <label for="description">Description</label>
-              <input type="text" id="description" formControlName="description" class="form-control">
+              <input type="text" name="description" class="form-control" [(ngModel)]="selectedCategory.description">
             </div>
             <div class="form-group">
               <label for="image">Image</label>
-              <input type="file" id="image" class="form-control" formControlName="imageurl" (change)="onFileSelected($event)">
+              <input type="file" name="image" class="form-control" (change)="onFileSelected($event)" [(ngModel)]="selectedCategory.image">
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <!-- <input type="hidden" name="update" class="form-control" [(ngModel)]="selectedCategory.id"> -->
+            
+            <button type="submit" class="btn btn-primary">{{ formMode === 'add' ? 'Add' : 'Update' }}</button>
             <button type="button" class="btn btn-danger" (click)="closePopup()">Close
             </button>
           </form>
@@ -58,7 +60,7 @@
         <td>{{ category.imageurl }}</td>
         <td>{{ category.addedBy }}</td>
         <td>
-          <a class="btn btn-primary">Update</a>
+          <a (click)="openPopup(category)" class="btn btn-primary">Update</a>
           <a (click)="deleteCategoryById(category.categoryId)" class="btn btn-danger">Delete</a>
         </td>
       </tr>

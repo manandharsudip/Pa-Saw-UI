@@ -7,7 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { environment } from 'src/environments/environment';
-import { AddBookRequest } from './add-book-model';
+import { UpdateCategory } from './staff-category-model';
 
 @Component({
   selector: 'app-staff-category',
@@ -15,8 +15,15 @@ import { AddBookRequest } from './add-book-model';
   styleUrls: ['./staff-category.component.scss'],
 })
 export class StaffCategoryComponent implements OnInit {
-  addCategoryForm!: FormGroup;
+  // addCategoryForm!: FormGroup;
   selectedFile!: File;
+  selectedCategory: UpdateCategory ={
+    categoryId: 0,
+    categoryname:'',
+    image: null,
+    description: ''
+  };
+  formMode: 'add' | 'update' = 'add'; 
 
   constructor(private http: HttpClient, private formBuilder: FormBuilder) {}
 
@@ -25,11 +32,11 @@ export class StaffCategoryComponent implements OnInit {
   ngOnInit(): void {
     this.fetchAllCategory();
 
-    this.addCategoryForm = new FormGroup({
-      categoryname: new FormControl(null, Validators.required),
-      description: new FormControl(null, Validators.required),
-      imageurl: new FormControl(null, Validators.required),
-    });
+    // this.addCategoryForm = new FormGroup({
+    //   categoryname: new FormControl(null, Validators.required),
+    //   description: new FormControl(null, Validators.required),
+    //   imageurl: new FormControl(null, Validators.required),
+    // });
   }
 
   public fetchAllCategory(): void {
@@ -47,40 +54,55 @@ export class StaffCategoryComponent implements OnInit {
   }
 
   public onAddingCat(): void {
+    const formData1 = new FormData();
+    formData1.set("categoryname", this.selectedCategory.categoryname);
+    formData1.set("description", this.selectedCategory.description);
+
+    if (this.selectedFile) {
+      formData1.append('imageurl', this.selectedFile);
+    }
+
+    console.log(formData1);
+
+
     const formData = new FormData();
 
     // console.log('Category:', this.addCategoryForm.get('categoryname')?.value);
     // console.log('Description:', this.addCategoryForm.get('description')?.value);
     // console.log('File:', this.selectedFile);
 
-    formData.append(
-      'categoryname',
-      this.addCategoryForm.get('categoryname')?.value
-    );
-    formData.append(
-      'description',
-      this.addCategoryForm.get('description')?.value
-    );
+    // formData.append(
+    //   'categoryname',
+    //   this.addCategoryForm.get('categoryname')?.value
+    // );
+    // formData.append(
+    //   'description',
+    //   this.addCategoryForm.get('description')?.value
+    // );
 
-    if (this.selectedFile) {
-      formData.append('imageurl', this.selectedFile);
+    // if (this.selectedFile) {
+    //   formData.append('imageurl', this.selectedFile);
+    // }
+
+    if (this.formMode === 'add') {
+      this.http
+        .post(environment.baseUrl + '/api/ems/category/login', formData1, 
+        )
+        .subscribe((response) => {
+          console.log(response);
+        });
+        console.log("Add Working");
+        location.reload();
+    } else if (this.formMode === 'update') {
+      this.http
+        .put(environment.baseUrl + '/api/ems/category/update/' + this.selectedCategory.categoryId, formData1, 
+        )
+        .subscribe((response) => {
+          console.log(response);
+        });
+        // location.reload();
+      console.log("Update Working");
     }
-
-    // const formDataObject: any = {};
-    // formData.forEach((value, key) => {
-    //   formDataObject[key] = value;
-    // });
-
-    // console.log(formDataObject);
-    // console.log(this.addCategoryForm.value);
-
-    this.http
-      .post(environment.baseUrl + '/api/ems/category/login', formData, 
-      )
-      .subscribe((response) => {
-        console.log(response);
-      });
-    location.reload();
   }
 
   public deleteCategoryById(categoryId: number): void {
@@ -93,7 +115,23 @@ export class StaffCategoryComponent implements OnInit {
   // modal form ...
   displayStyle = 'none';
 
-  openPopup() {
+  openPopup(category: any) {
+    if ( category == 0 ){
+      this.formMode = 'add';
+
+    }
+    else if (category !== 0){
+      // this.http
+      //   .get(environment.baseUrl + '/api/ems/category/441')
+      //   .subscribe((data) => {
+      //     this.selectedCategory = data;
+      //   });
+      this.formMode = 'update';
+      console.log(category);
+      this.selectedCategory = category;
+      // console.log(this.selectedCategory.categoryId)
+    } 
+
     this.displayStyle = 'block';
   }
 
@@ -101,3 +139,5 @@ export class StaffCategoryComponent implements OnInit {
     this.displayStyle = 'none';
   }
 }
+
+

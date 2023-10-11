@@ -2,7 +2,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 import {
   FormGroup,
-  FormBuilder,
   FormControl,
   Validators,
 } from '@angular/forms';
@@ -16,10 +15,13 @@ import { environment } from 'src/environments/environment';
 export class StaffProductComponent {
   addProductForm!: FormGroup;
   selectedFile!: File;
+  allProducts: any = [];
 
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
+    this.fetchAllProducts();
+
     this.addProductForm = new FormGroup({
       productname: new FormControl(null, Validators.required),
       description: new FormControl(null, Validators.required),
@@ -64,21 +66,35 @@ export class StaffProductComponent {
     formData.forEach((value, key) => {
       formDataObject[key] = value;
     });
-
-    // Print the plain object to inspect its contents
-    console.log(formDataObject);
-    console.log(this.addProductForm.value);
-    // , {headers: {'Content-Type': "multipart/form-data; boundary=<calculated when request is sent>"}
     this.http
-      .post(environment.baseUrl + '/api/ems/product/add', formData, {
-        headers: new HttpHeaders({
-          'Content-Type':
-            'multipart/form-data;  boundary=<calculated when request is sent>',
-        }),
-      })
+      .post(environment.baseUrl + '/api/ems/product/add', formData)
       .subscribe((response) => {
         console.log(response);
       });
-    // location.reload();
+    location.reload();
+  }
+
+  public fetchAllProducts(): void {
+    this.http.get(environment.baseUrl+"/api/ems/product").subscribe(data => {
+      this.allProducts = data;
+    });
+  }
+
+  public deleteCategoryById(categoryId: number): void {
+    this.http
+      .delete(environment.baseUrl + '/api/ems/category/delete/' + categoryId)
+      .subscribe();
+    location.reload();
+  }
+
+  // modal form ...
+  displayStyle = 'none';
+
+  openPopup() {
+    this.displayStyle = 'block';
+  }
+
+  closePopup() {
+    this.displayStyle = 'none';
   }
 }
