@@ -24,11 +24,29 @@ import { Router, ActivatedRouteSnapshot, RouterStateSnapshot, CanActivate } from
 @Injectable({
   providedIn: 'root'
 })
+
+export class AuthGaurdService {
+  constructor(private router: Router) { }
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    let role = sessionStorage.getItem("Role")
+    if (role == 'ROLE_ADMIN' || role == 'ROLE_USER' || role == 'ROLE_CUSTOMER') {
+      return true;
+    } else {
+      this.router.navigate([""]);
+      return false;
+    }
+  }
+}
+
+
+@Injectable({
+  providedIn: 'root'
+})
 export class AdminAuthGaurdService {
   constructor(private router: Router) { }
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     let role = sessionStorage.getItem("Role")
-    if (role == 'ROLE_ADMIN') {
+    if (role == 'ROLE_ADMIN' || role == 'ROLE_USER') {
       return true;
     } else {
       this.router.navigate([""]);

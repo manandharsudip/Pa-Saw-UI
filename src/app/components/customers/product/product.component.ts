@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -23,15 +24,14 @@ export class ProductComponent implements OnInit {
     }
   }
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   public addToCart(productID: any): void {
     const productData = { productid: productID, quantity: 1 };
 
     this.http
       .post(environment.baseUrl + '/api/ems/cart/addToCart', productData)
-      .subscribe((response) => {
-        console.log('Clicked', productID, response);
-      });
+      .subscribe();
+      this.router.navigate(["/carts"]);
   }
 }

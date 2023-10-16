@@ -28,7 +28,6 @@ export class AuthService {
   }
 
   authRegister(userData: Observable<any>) {
-    return this.http.post(environment.baseUrl + '/register', userData, {
-    });
+    return this.http.post(environment.baseUrl + '/register', userData, {});
   }
 }

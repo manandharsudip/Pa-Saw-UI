@@ -50,8 +50,8 @@ export class AuthStaffComponent implements OnInit {
     console.log(formDataObject);
     console.log(this.signInForm.value);
 
-    // this.authService.authLogin(this.signInForm.value).subscribe((response) => {
-    this.authService.authLogin(formDataObject).subscribe((response) => {
+    this.authService.authLogin(this.signInForm.value).subscribe((response) => {
+    // this.authService.authLogin(formDataObject).subscribe((response) => {
       this.userData = response;
       console.log(this.userData.userPrincipal.authorities[0].authority);
       if (this.userData) {
@@ -68,7 +68,7 @@ export class AuthStaffComponent implements OnInit {
           );
           // console.log(this.userData.userPrincipal.userId);
           sessionStorage.setItem('User ID', this.userData.userPrincipal.userId);
-          this.router.navigateByUrl('ems/admin-panel');
+          this.router.navigateByUrl('ems/category');
         } else {
           alert('Invalid Login');
         }

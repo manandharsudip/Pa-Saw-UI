@@ -1,25 +1,61 @@
-<br>
-<br>
+<br />
+<br />
 <h3>Orders</h3>
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{ display: displayStyle }">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Add Category</h4>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="onChangingStatus()" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="categoryname">Category Name</label>
+            <select class="form-select" [(ngModel)]="selectedValue" name="selectedOption">
+              <option selected>Open this select menu</option>
+              <option value="PENDING">PENDING</option>
+              <option value="SENT_FOR_DELIVERY">SENT_FOR_DELIVERY</option>
+              <option value="DELIVERD">DELIVERD</option>
+              <option value="RECIEVED">RECIEVED</option>
+              <option value="CANCELLED">CANCELLED</option>
+              <option value="CLOSED">CLOSED</option>
+            </select>
+          </div>
+          <!-- <input type="hidden" name="update" class="form-control" [(ngModel)]="selectedCategory.id"> -->
+
+          <button type="submit" class="btn btn-primary">Update</button>
+          <button type="button" class="btn btn-danger" (click)="closePopup()">
+            Close
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
 <table class="table table-hover table-bordered">
-    <thead>
+  <thead>
+    <tr>
+      <th scope="col">Order ID</th>
+      <th scope="col">User ID</th>
+      <th scope="col">Product Name</th>
+      <th scope="col">Status</th>
+      <th scope="col">Handle</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let order of allOrders">
       <tr>
-        <th scope="col">Order ID</th>
-        <th scope="col">User ID</th>
-        <th scope="col">Product Name</th>
-        <th scope="col">Status</th>
-        <th scope="col">Handle</th>
+        <th scope="row">{{ order.id }}</th>
+        <th scope="row">{{ order.userEntity.id }}</th>
+        <td>{{ order.productEntity.productname }}</td>
+        <td>{{ order.status }}</td>
+        <td>
+          <button (click)="openPopup(order)" class="btn btn-sm btn-outline-primary">
+            Update Status
+          </button>
+        </td>
       </tr>
-    </thead>
-    <tbody>
-      <ng-container *ngFor="let order of allOrders">
-        <tr>
-          <th scope="row"> {{ order.id }} </th>
-          <th scope="row"> {{ order.userEntity.id }} </th>
-          <td>{{ order.productEntity.productname }}</td>
-          <td>{{ order.status }}</td>
-          <td><button>Change Status</button></td>
-        </tr>
-      </ng-container>
-    </tbody>
-  </table>
+    </ng-container>
+  </tbody>
+</table>

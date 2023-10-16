@@ -12,6 +12,7 @@ export class HeaderComponent implements OnInit {
   allCategory: any = [];
   loggedIn: Boolean = false;
   isStaff: Boolean = false;
+  isCust: Boolean = false;
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -25,8 +26,14 @@ export class HeaderComponent implements OnInit {
       this.loggedIn = true;
     }
 
+
+    const isCustomer = sessionStorage.getItem('Role');
+    if (isCustomer === "ROLE_CUSTOMER" ){
+      this.isCust = true;
+    }
+
     const user_role = sessionStorage.getItem('Role');
-    if (user_role === "ROLE_ADMIN" || user_role === "ROLE_STAFF"){
+    if (user_role === "ROLE_ADMIN" || user_role === "ROLE_USER"){
       this.isStaff = true;
     }
   }

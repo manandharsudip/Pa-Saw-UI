@@ -54,6 +54,7 @@ export class AuthComponent implements OnInit {
   onSubmitSignUp(): void {
     // console.log(this.signUpForm.value);
     this.authService.authRegister(this.signUpForm.value).subscribe();
+    this.router.navigateByUrl('signIn');
   }
 
   onSubmitSignIn(): void {

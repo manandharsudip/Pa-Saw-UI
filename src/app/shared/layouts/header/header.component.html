@@ -1,11 +1,11 @@
 <nav class="navbar bg-dark navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
-    <div class="container-fluid">
+    <div class="container-fluid header-div">
         <a class="navbar-brand" href="/">Pa: Saw</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="collapse navbar-collapse nav-items" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="/">Home</a>
@@ -14,8 +14,8 @@
                 <ng-container *ngIf="!isStaff">
                     <ng-container *ngFor="let category of allCategory">
                         <li class="nav-item">
-                            <a class="nav-link" routerLink="/category/{{ category.categoryId }}">{{ category.categoryname
-                            }}</a>
+                            <a class="nav-link" routerLink="/category/{{ category.categoryId }}">{{
+                                category.categoryname }}</a>
                         </li>
                     </ng-container>
                 </ng-container>
@@ -41,10 +41,15 @@
                 </li>
             </ul>
             <ul class="navbar-nav me-auto mb-2 mb-lg-0" *ngIf="loggedIn">
-                <div>
-                    <a class="nav-link mouse-pointer" routerLink="/carts"><i style="color: white"
-                            class="bi bi-cart"></i></a>
-                </div>
+                <ng-container *ngIf="isCust">
+                    <div>
+                        <a class="nav-link mouse-pointer" routerLink="/carts"><i style="color: white"
+                                class="bi bi-cart"></i></a>
+                    </div>
+                    <li class="nav-item">
+                        <a class="nav-link mouse-pointer" routerLink="/cust-orders">My Orders</a>
+                    </li>
+                </ng-container>
                 <li class="nav-item">
                     <a class="nav-link mouse-pointer" routerLink="/myProfile">My Profile</a>
                 </li>

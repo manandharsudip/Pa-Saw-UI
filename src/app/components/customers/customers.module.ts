@@ -8,6 +8,7 @@ import { CartComponent } from './cart/cart.component';
 import { CategoryComponent } from './category/category.component';
 import { ProductComponent } from './product/product.component';
 import { ProductItemComponent } from './product-item/product-item.component';
+import { CustOrdersComponent } from './cust-orders/cust-orders.component';
 
 @NgModule({
     declarations: [
@@ -16,7 +17,8 @@ import { ProductItemComponent } from './product-item/product-item.component';
         CartComponent,
         CategoryComponent,
         ProductComponent,
-        ProductItemComponent
+        ProductItemComponent,
+        CustOrdersComponent
     ],
     exports: [
         AuthComponent,

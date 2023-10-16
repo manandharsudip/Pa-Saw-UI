@@ -1,10 +1,7 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
+  FormBuilder
 } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { UpdateCategory } from './staff-category-model';
@@ -62,7 +59,7 @@ export class StaffCategoryComponent implements OnInit {
       formData1.append('imageurl', this.selectedFile);
     }
 
-    console.log(formData1);
+
 
 
     const formData = new FormData();
@@ -92,7 +89,7 @@ export class StaffCategoryComponent implements OnInit {
           console.log(response);
         });
         console.log("Add Working");
-        location.reload();
+        // location.reload();
     } else if (this.formMode === 'update') {
       this.http
         .put(environment.baseUrl + '/api/ems/category/update/' + this.selectedCategory.categoryId, formData1, 
@@ -100,7 +97,7 @@ export class StaffCategoryComponent implements OnInit {
         .subscribe((response) => {
           console.log(response);
         });
-        // location.reload();
+        location.reload();
       console.log("Update Working");
     }
   }

@@ -4,22 +4,72 @@
 <table class="table table-hover table-bordered">
     <thead>
       <tr>
-        <th scope="col">Order ID</th>
+        <th scope="col">Cart ID</th>
         <th scope="col">Product Name</th>
         <th scope="col">Quantity</th>
+        <th scope="col">Price</th>
         <th scope="col">Status</th>
         <th scope="col"><input type="checkbox" [(ngModel)]="selectAll" (change)="toggleAllCheckboxes()"> Select All</th>
+        <th>Delete</th>
       </tr>
     </thead>
     <tbody>
-        <ng-container *ngFor="let order of allOrders">
+        <ng-container *ngFor="let cart of allCarts">
           <tr>
-            <th scope="row"> {{ order.id }} </th>
-            <td>{{ order.productEntity.productname }}</td>
-            <td><input type="number" value="{{ order.quantity }}" min="1"> </td>
-            <td>{{ order.status }}</td>
-            <td> <input type="checkbox" [(ngModel)]="order.checked" (change)="onCheckboxChange(order)"> {{ order.productEntity.productname }}</td>
+            <th scope="row"> {{ cart.id }} </th>
+            <td>{{ cart.productEntity.productname }}</td>
+            <td><input type="number" [(ngModel)]="cart.quantity" min="1" (ngModelChange)="onQuantityChange()"> </td>
+            <td>{{ cart.productEntity.price }}</td>
+            <td>{{ cart.status }}</td>
+            <td> <input type="checkbox" [(ngModel)]="cart.checked" (change)="onCheckboxChange(cart)"> {{ cart.productEntity.productname }}</td>
+            <td><a (click)="deleteCartItem(cart.id)" class="btn btn-danger">Delete</a></td>
           </tr>
         </ng-container>
       </tbody>
     </table>
+
+
+    <div class="card">
+      <div class="card-header">
+        Checkout
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Amount</h5>
+        <p class="card-text">$ {{ totalPrice }}</p>
+        <a class="btn btn-primary" (click)="openPopup(0)">Checkout</a>
+      </div>
+    </div>
+
+
+    <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{ display: displayStyle }">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Checkout</h4>
+          </div>
+          <div class="modal-body">
+            <h5 class="card-title">Amount</h5>
+            <p class="card-text">$ {{ totalPrice }}</p>
+
+            <form (ngSubmit)="btnClick()" enctype="multipart/form-data">
+              <div class="form-group">
+                <label for="phonenumber">Phone Number</label>
+                <input type="number" name="phonenumber" class="form-control"  [(ngModel)]="myUser.phonenumber"/>
+              </div>
+              <div class="form-group">
+                <label for="address"> Address </label>
+                <input type="text" name="address" class="form-control" [(ngModel)]="myUser.address"/>
+              </div>
+              <br>
+  
+              <button type="submit" class="btn btn-primary">
+                Checkout
+              </button>
+              <button type="button" class="btn btn-danger" (click)="closePopup()">
+                Close
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>

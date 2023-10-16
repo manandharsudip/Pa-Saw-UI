@@ -12,9 +12,10 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { CustomerModule } from './components/customers/customers.module';
 import { HttpTokenInterceptor } from './main/interceptor/http.interceptor';
 import { StaffModule } from './components/staff/staff.module';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, UserProfileComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

@@ -1,0 +1,26 @@
+<br>
+<br>
+<h3>My Orders</h3>
+<table class="table table-hover table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">Order ID</th>
+        <th scope="col">Product Name</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Price</th>
+        <th scope="col">Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        <ng-container *ngFor="let cart of allCarts">
+          <tr>
+            <th scope="row"> {{ cart.id }} </th>
+            <td>{{ cart.productEntity.productname }}</td>
+            <td>{{ cart.quantity }} </td>
+            <td>{{ cart.productEntity.price }}</td>
+            <td>{{ cart.status }}</td>
+            </tr>
+        </ng-container>
+      </tbody>
+    </table>
+
